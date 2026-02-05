@@ -19,7 +19,7 @@ let array7 = array3.map((value)=>value < Infinity);
 console.log(array7 === array3);
 // 깊은 복사1 , 이게 A급이라고 함...?
 
-let array8 = [...array3]
+let array8 = {...array3}
 console.log(array8 === array3);
 // 깊은 복사2 , 매우 간단
 

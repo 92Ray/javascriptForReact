@@ -29,3 +29,13 @@ let person2 = {
 } = person;
 
 console.log(myAge, name, hobby, extra);
+
+// 3.함수(람다식= 화살표함수)
+// 각 멤버변수를 변수로 저장하고, 출력하려고 한다.
+let printPerson=({name, age, hobby, extra = "hi, there."})=>{
+  console.log(`name = ${name}`);
+  console.log(`age = ${age+1}`);
+  console.log(`hobby = ${hobby}`);
+  console.log(`extra = ${extra}`);
+}
+printPerson(person);

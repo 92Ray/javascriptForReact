@@ -5,7 +5,7 @@ for (let i = 0; i < arr.length; i++) {
   console.log(arr[i]); 
 } 
  
-// 2 for of 반복문 
+// 2 for of 반복문 - 향상된 for문과 같음.
 let arr2 = [1, 2, 3]; 
 for (let item of arr) { 
   console.log(item); 

@@ -16,20 +16,23 @@ delete animal.color;
 // 삭제가능 
 //값이 함수인 프로퍼티를 말함 
 const person = { 
-name: "홍길동" 
-};
-// 메서드 선언 
-sayHi() { 
-console.log("안녕!")
-}; 
-//익명함수 가능 
-sayHi2 : function() { 
-console.log("안녕2!"); 
-}, 
-//화살표함수 가능 
-sayHi3 : ()=> { 
-console.log("안녕3!"); 
-}, 
-person.sayHi(); 
-person["sayHi"]();  //괄호표기법으로 함수 호출가능하다.
+  name: "홍길동", // 콤마로 연결
 
+  // 메서드 선언 (축약형)
+  sayHi() { 
+    console.log("안녕!");
+  }, // 콤마로 연결
+
+  // 익명함수 방식
+  sayHi2 : function() { 
+    console.log("안녕2!");
+  }, // 콤마로 연결
+
+  // 화살표함수 방식
+  sayHi3 : () => { 
+    console.log("안녕3!"); 
+  } 
+};
+
+person.sayHi(); 
+person["sayHi"]();

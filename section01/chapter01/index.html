@@ -4,14 +4,40 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Document</title>
-  <script src="./chapter30.js"></script>
+  <script>
+    function onClick(){
+      const  $ul = document.getElementById("ul");
+      let today = new Date();
+      let startTime = today.getMilliseconds();
+      for (let i = 0; i < 3000; i++) {
+        $ul.innerHTML = $ul.innerHTML + `<li>${i}</li>`;
+      }
+      let stopTime = today.getMilliseconds();
+      console.log(`걸리는시간 ${stopTime - startTime}`)
+    }
+
+    function onClick2(){
+      const  $ul = document.getElementById("ul");
+     let listValue =""
+      for (let i = 0; i < 1000; i++) {
+        listValue = listValue +  `<li>${i}</li>`;
+      }
+      $ul.innerHTML = listValue;
+    }
+
+
+  </script>
  
 </head>
 <!-- 컨트롤+, 로 포트번호 변경 가능! -->
 <!-- 현재 스프링부트랑 포트번호가 같이 비주얼 스튜디오 코드의 포트번호를 5501로 변경.-->
-<body>
-  <h2>안녕하세요1</h2>
-  
+<h2>Hello, there.</h2>
+<button type="button" onclick="onClick()">리스트 추가하기(실제돔)</button>
+<button type="button" onclick="onClick2()">리스트 추가하기(가상돔)</button>
+<ul id="ul"></ul>
+
+</html>
+
 <!-- 메인(public static void main arg) -->
 <!-- 자바스크립트는 3가지 함수가 있다. -->
  <!-- 1.선언함수(이름이 있는 함수), 2.익명함수(이름이 없는 함수), 3.화살표함수(선언적 함수) -->

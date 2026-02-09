@@ -1,28 +1,43 @@
-
-import './App.css'
-import { useState } from 'react'
-import Viewer from './Componensts/Viewr'
-import Controller from './Componensts/Controller';
+import './App.css';
+import { useState, useEffect, useRef } from 'react';
+import Controller from './Components/Controller';
+import Viewer from './Components/Viewer';
+import Even from './Components/Even';
 
 function App() {
-  const [ count, setCount ] = useState(0);
-  const onClickButton = (e)=>{
-    setCount(count + parseInt(e.target.value))
-  };
-  console.log(`Viewr 리렌더링 ${count}`);
-  return (
-    <>
-    <div className="app">
-    {/* 제목 */}
-     <h1>계산기</h1>
-     {/* 계산기 결과값 */}
-     <Viewer count = {count}/>
-     {/* 카운터이벤트버튼 */}
-     <Controller onClickButton={onClickButton}/>
-    </div>
 
-    </>
-  )
+  const [count, setCount] = useState(0);
+
+  const onClickButton = (e) => {
+    setCount(count + parseInt(e.target.value));
+  }
+
+  const isMount = useRef(false);
+  const countValue = useRef(0);
+
+  useEffect(()=>{
+    console.log(`countValue = ${countValue.current}`);
+    countValue.current = countValue.current + 1;
+    if(isMount.current === false) {
+      isMount.current = true;
+      return;
+    } else {
+      console.log("App mount 작동");
+    }
+  });
+
+ return (
+ <>
+ <div className="App">
+  {/* 제목 */}
+  <h1>Counter App</h1>
+  {/* 카운터뷰 */}
+  <Viewer count={count} />
+  {/* 카운터 이벤트버튼 */}
+  <Controller onClickButton = {onClickButton} />
+  {count % 2 === 0 ? <Even /> : null }
+ </div>
+ </>
+ );
 }
-
-export default App
+export default App;

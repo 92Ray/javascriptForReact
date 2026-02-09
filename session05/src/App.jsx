@@ -3,6 +3,7 @@ import './App.css'
 import { useState } from 'react'
 import Bulb from './components/Bulb';
 import Register from './components/Register';
+import HookExam from './components/HookExam';
 // 실제로 작업하는 공간. 다른 건 건드리지 말기
 // Header, App 등 첫글자는 대문자.
 // 보통은 모델 하나에 컴포넌트 하나. 두 개 이상 만들면 안 된다.
@@ -10,7 +11,7 @@ import Register from './components/Register';
 export default function App() {
 
 return<>
-    <Register/>
+    <HookExam />
     </>
  } 
 

@@ -1,0 +1,9 @@
+.Header > h1 { 
+  color: rgb(93, 166, 240);
+  text-align: center;
+} 
+
+.Header > h3 {
+  text-align: center;
+  color: rgb(18, 54, 90);
+}

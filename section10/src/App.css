@@ -1,105 +1,29 @@
-/* App.css */
-
-.app {
-  width: 320px;
-  padding: 30px;
-  background: rgba(255, 255, 255, 0.1); /* 반투명 배경 */
-  backdrop-filter: blur(15px); /* 뒤쪽 흐리게 (핵심!) */
-  border-radius: 30px;
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  box-shadow: 0 25px 50px rgba(0, 0, 0, 0.3);
-  text-align: center;
+.App {
+  width: 500px;
+  border: 1px solid black;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
-
-h1 {
-  font-weight: 300;
-  font-size: 1.2rem;
-  margin-top: 0;
-  opacity: 0.8;
-}
-
-/* Viewer: 숫자 표시창 */
 .viewer {
-  margin-bottom: 30px;
-  padding: 10px;
-}
-
-.viewer div {
-  font-size: 0.8rem;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-  color: rgba(255, 255, 255, 0.6);
-}
-
-.viewer h1 {
-  font-size: 3.5rem;
-  font-weight: 200;
-  margin: 5px 0;
-  color: white;
-  overflow-x: auto;
-}
-
-/* Controller: 입력창과 버튼 */
-.controller .input-group {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 15px;
-  margin-bottom: 25px;
-}
-
-.controller input {
-  width: 80%;
-  background: rgba(255, 255, 255, 0.05);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: 12px;
-  padding: 12px;
-  color: white;
-  font-size: 1rem;
   text-align: center;
-  transition: 0.3s;
+  margin: 0px;
 }
 
-.controller input:focus {
-  outline: none;
-  background: rgba(255, 255, 255, 0.15);
-  border-color: rgba(255, 255, 255, 0.5);
+.inputController {
+  margin: 10px 0px;
 }
 
-/* 버튼들 */
-.controller .button-group {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 12px;
-}
-
-.controller button {
-  aspect-ratio: 1 / 1; /* 정사각형 버튼 */
-  border-radius: 50%; /* 동그란 버튼 */
-  border: none;
-  background: rgba(255, 255, 255, 0.1);
+.buttonController button {
+  width: 55px;
+  margin-right: 10px;
+  background-color: black;
   color: white;
-  font-size: 1.2rem;
-  font-weight: 400;
-  cursor: pointer;
-  transition: 0.2s;
 }
 
-/* 연산자 버튼 강조 */
-.controller button:hover {
-  background: rgba(255, 255, 255, 0.3);
-}
-
-/* AC(초기화) 버튼 스타일 */
-.controller button:last-child {
-  grid-column: span 4;
-  aspect-ratio: auto;
-  border-radius: 15px;
-  margin-top: 10px;
-  background: rgba(255, 71, 87, 0.6);
-  font-size: 1rem;
-  height: 45px;
-}
-
-.controller button:last-child:hover {
-  background: rgba(255, 71, 87, 0.8);
+.buttonController button:hover {
+  background-color: red;
+  color: white;
 }

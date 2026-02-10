@@ -31,9 +31,9 @@ function App() {
  <div className="App">
   {/* 제목 */}
   <h1>Counter App</h1>
-  {/* 카운터뷰 */}
+  {/* 카운트 뷰 */}
   <Viewer count={count} />
-  {/* 카운터 이벤트버튼 */}
+  {/* 카운트 이벤트버튼 */}
   <Controller onClickButton = {onClickButton} />
   {count % 2 === 0 ? <Even /> : null }
  </div>

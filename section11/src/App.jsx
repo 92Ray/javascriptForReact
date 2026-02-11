@@ -3,7 +3,7 @@ import Header from './components/Header'
 import List from './components/List'
 import Editor from './components/Editor'
 import './css/App.css'
-import { useReducer, useRef } from 'react'
+import { useReducer, useRef, useState , useCallback} from 'react'
 import Exam from './components/Exaam'
 
 // 전역변수
@@ -29,7 +29,7 @@ const mockData = [
 ];
 
 function reducer(todos, action) {
-  switch (action.type) {   
+  switch (action.type) {
     case "INSERT":
       return [action.data, ...todos];
 
@@ -49,40 +49,39 @@ function reducer(todos, action) {
 }
 
 function App() {
+  const [count,setCount] = useState(0);
   const [todos, dispatch] = useReducer(reducer, mockData);
   const idRef = useRef(3);
 
   // 생성
-  const onCreate = (content) => {
+  const onCreate = useCallback((content) => {
     const newTodo = {
       id: idRef.current++,
       isDone: false,
-      content,
+      content: content,
       date: new Date().getTime(),
     };
 
     dispatch({ type: "INSERT", data: newTodo });
-  };
+  },[]) 
 
   // 수정
-  const onUpdate = (id) => {
+  const onUpdate = useCallback((id) => {
     dispatch({ type: "UPDATE", id : id});
-  };
+  },[]) 
 
   // 삭제
-  const onDelete = (id) => {
+  const onDelete = useCallback((id) => {
     dispatch({ type: "DELETE", id : id });
-  };
+  },[]);
 
   return (
     <div className="App">
-      <Header />
+      <Header count={count}/>
       <Exam />
       <Editor onCreate={onCreate} />
       <List
-        todos={todos}
-        onUpdate={onUpdate}
-        onDelete={onDelete}
+        todos={todos} onUpdate={onUpdate} onDelete={onDelete}
       />
     </div>
   );

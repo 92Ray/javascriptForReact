@@ -1,8 +1,13 @@
-const Diary = ()=> {
+import Header from './Header'
+import Button from './Button'
+import { useParams } from 'react-router-dom'
 
-  return<>
-    <h1>Diary</h1>
+const Diary = ()=>{
+  const onClickButton = (e)=>alert(e.target.innerText)
+  const params = useParams();
+
+  return <>
+    <h1>{params.id}Diary</h1>
   </>
-
 }
 export default Diary;

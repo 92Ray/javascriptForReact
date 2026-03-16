@@ -1,4 +1,8 @@
 import React, { useRef, useState } from "react";
+import { postAdd } from "../../api/productApi";
+import FetchingModal from "../common/FetchingModal";
+import InfoModal from "../common/InfoModal";
+import useCustomMove from "../../hooks/useCustomMove";
 import "./AddComponent.css"; // CSS 파일 임포트
 
 const initState = {
@@ -10,6 +14,11 @@ const initState = {
 
 export default function AddComponent() {
   const [product, setProduct] = useState({ ...initState });
+  const [fetching, setFetching] = useState(false);
+  const [infoModalOn, setInfoModalOn] = useState(false);
+  const [result, setResult] = useState(null);
+  const { moveToProductList } = useCustomMove();
+
   const uploadRef = useRef(); // 파일 업로드 접근을 위한 Ref
 
   // 이벤트 처리
@@ -24,11 +33,42 @@ export default function AddComponent() {
   const handleClickAdd = () => {
     // 전송 시 파일 데이터를 포함하기 위해 uploadRef 사용 가능
     const files = uploadRef.current.files;
-    // 여기에 API 호출 로직(예: postAdd)을 추가할 수 있습니다.
+    console.log("Product Data:", product);
+    console.log("Uploaded Files:", files);
+
+    const formData = new FormData();
+    for (let i = 0; i < files.length; i++) {
+      formData.append("files", files[i]);
+    }
+
+    //other data
+    formData.append("pname", product.pname);
+    formData.append("pdesc", product.pdesc);
+    formData.append("price", product.price);
+
+    // api 호출진행에서 서버에 전송
+    setFetching(true);
+    postAdd(formData).then((data) => {
+      setFetching(false);
+      setInfoModalOn(true);
+    });
+  };
+
+  const closeModal = () => {
+    setInfoModalOn(false);
+    moveToProductList({ page: 1 });
   };
 
   return (
     <div className="add-container">
+      {fetching ? <FetchingModal /> : <></>}
+      <InfoModal
+        show={infoModalOn}
+        title={`Product ADD RESULT`}
+        content={`New ${result} Added`}
+        callbackFn={closeModal}
+      />
+
       <div className="form-wrapper">
         {/* 상품명 입력 */}
         <div className="form-group">

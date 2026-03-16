@@ -1,66 +1,120 @@
 import { useEffect, useState } from "react";
-import { getOne } from "../../api/todoApi";
-import "./ReadComponent.css"; // CSS 파일 임포트
+import { getOne } from "../../api/productsApi";
+import { API_SERVER_HOST } from "../../api/todoApi";
+import useCustomMove from "../../hooks/useCustomMove";
+import FetchingModal from "../common/FetchingModal";
+import "./ReadComponent.css"; // CSS 분리
 
 const initState = {
-  tno: 0,
-  title: "",
-  writer: "",
-  dueDate: null,
-  complete: false,
+  pno: 0,
+  pname: "",
+  pdesc: "",
+  price: 0,
+  uploadFileNames: [],
 };
 
-const ReadComponent = ({ tno, moveToList, moveToModify }) => {
-  const [todo, setTodo] = useState(initState); //아직 todo는 사용하지 않음
-  //마운트기능
+const host = API_SERVER_HOST;
+
+const ReadComponent = ({ pno }) => {
+  const [product, setProduct] = useState(initState);
+  const [fetching, setFetching] = useState(false);
+  const { moveToProductList, moveToProductModify } = useCustomMove();
+
   useEffect(() => {
-    getOne(tno).then((data) => {
-      console.log(data);
-      setTodo(data);
-    });
-  }, [tno]);
+    // 렌더링 사이클 충돌 방지
+    const timer = setTimeout(() => setFetching(true), 0);
+
+    getOne(pno)
+      .then((data) => {
+        setProduct(data);
+        setFetching(false);
+      })
+      .catch(() => setFetching(false));
+
+    return () => clearTimeout(timer);
+  }, [pno]);
 
   return (
-    <div>
-      <div className="read-container">
-        <MakeDiv title="Tno" value={todo.tno} />
-        <MakeDiv title="Writer" value={todo.writer} />
-        <MakeDiv title="Title" value={todo.title} />
-        <MakeDiv title="Due Date" value={todo.dueDate} />
-        <MakeDiv
-          title="Complete"
-          value={todo.complete ? "Completed" : "Not Yet"}
-        />
+    <div className="read-container">
+      {fetching && <FetchingModal />}
+
+      <div className="read-form-wrapper">
+        <div className="read-form-group">
+          <label className="read-label">PNO</label>
+          <input
+            className="read-control"
+            value={pno}
+            type="text"
+            readOnly
+            disabled
+          />
+        </div>
+
+        <div className="read-form-group">
+          <label className="read-label">PNAME</label>
+          <input
+            className="read-control"
+            value={product.pname}
+            type="text"
+            readOnly
+            disabled
+          />
+        </div>
+
+        <div className="read-form-group">
+          <label className="read-label">PRICE</label>
+          <input
+            className="read-control"
+            value={`${product.price.toLocaleString()}원`}
+            type="text"
+            readOnly
+            disabled
+          />
+        </div>
+
+        <div className="read-form-group">
+          <label className="read-label">DESCRIPTION</label>
+          <input
+            className="read-control"
+            value={product.pdesc}
+            type="text"
+            readOnly
+            disabled
+          />
+        </div>
+
+        {/* 상품 이미지 목록 */}
+        <div className="image-list-wrapper">
+          {product.uploadFileNames.map((imgFile, i) => (
+            <img
+              alt={`product-${i}`}
+              key={i}
+              className="product-read-img"
+              src={`${host}/api/products/view/s_${imgFile}`}
+            />
+          ))}
+        </div>
       </div>
-      {/* 버튼 컨트롤 영역 */}
-      <div className="button-group">
+
+      {/* 하단 제어 버튼 */}
+      <div className="read-button-group">
         <button
-          className="custom-btn btn-modify"
+          className="btn-read btn-modify-nav"
           type="button"
-          onClick={() => moveToModify(tno)}
+          onClick={() => moveToProductModify(pno)}
         >
-          수정하기
+          50 수정하기
         </button>
         <button
-          className="custom-btn btn-list"
+          className="btn-read btn-list-nav"
           type="button"
-          onClick={() => moveToList()}
+          onClick={() => moveToProductList()}
         >
-          목록가기
+          리스트보기
         </button>
       </div>
     </div>
   );
 };
-
-// 가독성을 위해 내부 컴포넌트로 분리 (첫 글자 대문자)
-const MakeDiv = ({ title, value }) => (
-  <div className="read-row">
-    <div className="read-wrapper">
-      <div className="read-label">{title}</div>
-      <div className="read-value">{value}</div>
-    </div>
-  </div>
-);
 
 export default ReadComponent;

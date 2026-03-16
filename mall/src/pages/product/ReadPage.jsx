@@ -11,28 +11,13 @@ import "./ReadPage.css";
 import useCustomMove from "../../hooks/useCustomMove";
 
 const ReadPage = () => {
-  const { tno } = useParams();
-  const [queryParams] = useSearchParams();
-  const navigate = useNavigate();
-
-  const page = queryParams.get("page") ? parseInt(queryParams.get("page")) : 1;
-  const size = queryParams.get("size") ? parseInt(queryParams.get("size")) : 10;
-  //"?page=1&size=10"
-  const queryStr = createSearchParams({ page, size }).toString();
-
-  //동적 페이지 이동
-  const moveModify = useCallback(() => {
-    navigate({
-      pathname: `/todo/modify/${tno}`,
-      search: queryStr,
-    });
-  }, [navigate, tno, queryStr]);
+  const { pno } = useParams();
 
   return (
     <>
       <div className="main-container">
         <Header />
-        <ReadComponent tno={tno} />
+        <ReadComponent pno={pno} />
       </div>
     </>
   );

@@ -4,7 +4,7 @@ import { useParams } from "react-router-dom";
 import "./ModifyPage.css";
 
 const ModifyPage = () => {
-  const { tno } = useParams();
+  const { pno } = useParams();
 
   return (
     <div className="list-page-container">
@@ -12,11 +12,7 @@ const ModifyPage = () => {
       <main className="list-content-area">
         <div className="list-wrapper">
           {/* 실제 데이터 목록이 표시되는 컴포넌트 */}
-          <ModifyComponent
-            tno={tno}
-            moveToList={moveToList}
-            moveRead={moveRead}
-          />
+          <ModifyComponent tno={pno} />
         </div>
       </main>
     </div>

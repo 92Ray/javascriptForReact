@@ -1,0 +1,21 @@
+import Header from "../../include/Header";
+import AddComponent from "../../components/product/AddComponent";
+import "./AddPage.css";
+
+const AddPage = () => {
+  return (
+    <>
+      <div className="main-container">
+        <Header />
+
+        <main className="list-content-area">
+          <div className="list-button-wrapper">
+            <AddComponent />
+          </div>
+        </main>
+      </div>
+    </>
+  );
+};
+
+export default AddPage;

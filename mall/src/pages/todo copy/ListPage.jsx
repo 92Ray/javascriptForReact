@@ -1,6 +1,6 @@
 import Header from "../../include/Header";
 import { useSearchParams } from "react-router-dom";
-import ListComponent from "../../components/todo/ListComponent";
+import ListComponent from "../../components/product/ListComponent";
 import "./ListPage.css";
 
 const ListPage = () => {

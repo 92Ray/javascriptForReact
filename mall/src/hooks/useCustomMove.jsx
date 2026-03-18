@@ -82,9 +82,19 @@ const useCustomMove = () => {
     setRefresh(!refresh);
   };
 
-  const moveToProductread = (pno) => {
-    navigate({ pathname: `../product/list`, search: queryStr });
-    setRefresh(!refresh);
+  const moveToProductRead = (num) => {
+    navigate({
+      pathname: `../product/read/${num}`,
+      search: queryDefault, //수정시에 기존의 쿼리 스트링 유지를 위해
+    });
+  };
+
+  const moveToProductModify = (num) => {
+    console.log(queryDefault);
+    navigate({
+      pathname: `../product/modify/${num}`,
+      search: queryDefault, //수정시에 기존의 쿼리 스트링 유지를 위해
+    });
   };
 
   return { moveToProductList, moveToModify, moveToRead, page, size, refresh }; //moveToModify 추가

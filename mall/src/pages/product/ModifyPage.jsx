@@ -12,7 +12,7 @@ const ModifyPage = () => {
       <main className="list-content-area">
         <div className="list-wrapper">
           {/* 실제 데이터 목록이 표시되는 컴포넌트 */}
-          <ModifyComponent tno={pno} />
+          <ModifyComponent pno={pno} />
         </div>
       </main>
     </div>

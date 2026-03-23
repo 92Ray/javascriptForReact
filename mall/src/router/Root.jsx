@@ -15,6 +15,11 @@ const ProductListPage = lazy(() => import("../pages/product/ListPage"));
 const ProductAddPage = lazy(() => import("../pages/product/AddPage"));
 const ProductReadPage = lazy(() => import("../pages/product/ReadPage"));
 const ProductModifyPage = lazy(() => import("../pages/product/ModifyPage"));
+// ***** member *****
+const LoginPage = lazy(() => import("../pages/member/LoginPage"));
+const LogoutPage = lazy(() => import("../pages/member/logoutPage"));
+const KakaoRedirect = lazy(() => import("../pages/member/KakaoRedirectPage"));
+const MemberModify = lazy(() => import("../pages/member/ModifyPage"));
 // 필요시 Add 추가
 
 const Root = createBrowserRouter([
@@ -105,6 +110,42 @@ const Root = createBrowserRouter([
     element: (
       <Suspense fallback={<Loading />}>
         <ProductAddPage />
+      </Suspense>
+    ),
+  },
+  // ***** member *****
+  {
+    path: "/member/login",
+    element: (
+      <Suspense fallback={<Loading />}>
+        <LoginPage />
+      </Suspense>
+    ),
+  },
+  {
+    path: "/member/logout",
+    element: (
+      <Suspense fallback={<Loading />}>
+        <LogoutPage />
+      </Suspense>
+    ),
+  },
+
+  // ***** Kakao 로그인 *****
+  {
+    path: "/member/kakao",
+    element: (
+      <Suspense fallback={<Loading />}>
+        <KakaoRedirect />
+      </Suspense>
+    ),
+  },
+
+  {
+    path: "/member/modify",
+    element: (
+      <Suspense fallback={Loading}>
+        <MemberModify />
       </Suspense>
     ),
   },

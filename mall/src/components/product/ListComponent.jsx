@@ -1,10 +1,11 @@
 import { useEffect, useState } from "react";
-import { getList } from "../../api/todoApi";
+import { getList } from "../../api/productsApi";
 import useCustomMove from "../../hooks/useCustomMove";
-import PageComponent from "../common/PageComponent";
 import FetchingModal from "../common/FetchingModal";
 import { API_SERVER_HOST } from "../../api/todoApi";
-import "./ListComponent.css";
+import PageComponent from "../common/PageComponent";
+import useCustomLogin from "../../hooks/useCustomLogin";
+import "./ListComponent.css"; // CSS 분리
 
 const host = API_SERVER_HOST;
 
@@ -22,36 +23,34 @@ const initState = {
 };
 
 const ListComponent = () => {
-  const { page, size, moveToProductList, refresh } = useCustomMove();
+  const { page, size, moveToProductList, moveToProductRead, refresh } =
+    useCustomMove();
   const [serverData, setServerData] = useState(initState);
   const [fetching, setFetching] = useState(false);
+  const { exceptionHandle } = useCustomLogin();
 
-  // api server로부터 데이터로딩
   useEffect(() => {
-    // 마이크로 태스크 큐로 밀어넣어 렌더링 충돌 방지
-    const timer = setTimeout(() => {
-      setFetching(true);
-    }, 0);
+    // 동기적 상태 변화로 인한 렌더링 충돌 방지
+    const timer = setTimeout(() => setFetching(true), 0);
 
     getList({ page, size })
       .then((data) => {
-        console.log(data);
         setServerData(data);
-        setFetching(false); // 데이터 로딩 완료 시 false
+        setFetching(false);
       })
+
       .catch((err) => {
-        // 에러 발생 시에도 로딩은 꺼줘야 하므로 예외 처리를 권장합니다.
         setFetching(false);
         console.error(err);
+        exceptionHandle(err);
       });
-  }, [page, size, refresh]);
 
-  // api서버로부터
+    return () => clearTimeout(timer);
+  }, [page, size, refresh, exceptionHandle]);
 
   return (
-    <div className="list-container">
+    <div className="product-list-container">
       {fetching && <FetchingModal />}
-      <h1>gggggg</h1>
 
       <div className="product-grid">
         {serverData.dtoList.map((product) => (
@@ -75,10 +74,7 @@ const ListComponent = () => {
                   src={`${host}/api/products/view/s_${product.uploadFileNames[0]}`}
                 />
               ) : (
-                <img
-                  alt="product"
-                  src={`${host}/api/products/view/s_${product.uploadFileNames[0]}`}
-                />
+                <span>No Image</span>
               )}
             </div>
           </div>
